@@ -1,0 +1,58 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/03/a/RAM8.hdl
+
+/**
+ * Memory of 8 registers, each 16 bit-wide. Out holds the value
+ * stored at the memory location specified by address. If load==1, then 
+ * the in value is loaded into the memory location specified by address 
+ * (the loaded value will be emitted to out from the next time step onward).
+ */
+
+CHIP RAM8 {
+    IN in[16], load, address[3];
+    OUT out[16];
+
+    PARTS:
+    DMux8Way(in=in[0],sel=address[0..2],a=Rai0,b=Rbi0,c=Rci0,d=Rdi0,e=Rei0,f=Rfi0,g=Rgi0,h=Rhi0);
+    DMux8Way(in=in[1],sel=address[0..2],a=Rai1,b=Rbi1,c=Rci1,d=Rdi1,e=Rei1,f=Rfi1,g=Rgi1,h=Rhi1);
+    DMux8Way(in=in[2],sel=address[0..2],a=Rai2,b=Rbi2,c=Rci2,d=Rdi2,e=Rei2,f=Rfi2,g=Rgi2,h=Rhi2);
+    DMux8Way(in=in[3],sel=address[0..2],a=Rai3,b=Rbi3,c=Rci3,d=Rdi3,e=Rei3,f=Rfi3,g=Rgi3,h=Rhi3);
+    DMux8Way(in=in[4],sel=address[0..2],a=Rai4,b=Rbi4,c=Rci4,d=Rdi4,e=Rei4,f=Rfi4,g=Rgi4,h=Rhi4);
+    DMux8Way(in=in[5],sel=address[0..2],a=Rai5,b=Rbi5,c=Rci5,d=Rdi5,e=Rei5,f=Rfi5,g=Rgi5,h=Rhi5);
+    DMux8Way(in=in[6],sel=address[0..2],a=Rai6,b=Rbi6,c=Rci6,d=Rdi6,e=Rei6,f=Rfi6,g=Rgi6,h=Rhi6);
+    DMux8Way(in=in[7],sel=address[0..2],a=Rai7,b=Rbi7,c=Rci7,d=Rdi7,e=Rei7,f=Rfi7,g=Rgi7,h=Rhi7);
+    DMux8Way(in=in[8],sel=address[0..2],a=Rai8,b=Rbi8,c=Rci8,d=Rdi8,e=Rei8,f=Rfi8,g=Rgi8,h=Rhi8);
+    DMux8Way(in=in[9],sel=address[0..2],a=Rai9,b=Rbi9,c=Rci9,d=Rdi9,e=Rei9,f=Rfi9,g=Rgi9,h=Rhi9);
+    DMux8Way(in=in[10],sel=address[0..2],a=Rai10,b=Rbi10,c=Rci10,d=Rdi10,e=Rei10,f=Rfi10,g=Rgi10,h=Rhi10);
+    DMux8Way(in=in[11],sel=address[0..2],a=Rai11,b=Rbi11,c=Rci11,d=Rdi11,e=Rei11,f=Rfi11,g=Rgi11,h=Rhi11);
+    DMux8Way(in=in[12],sel=address[0..2],a=Rai12,b=Rbi12,c=Rci12,d=Rdi12,e=Rei12,f=Rfi12,g=Rgi12,h=Rhi12);
+    DMux8Way(in=in[13],sel=address[0..2],a=Rai13,b=Rbi13,c=Rci13,d=Rdi13,e=Rei13,f=Rfi13,g=Rgi13,h=Rhi13);
+    DMux8Way(in=in[14],sel=address[0..2],a=Rai14,b=Rbi14,c=Rci14,d=Rdi14,e=Rei14,f=Rfi14,g=Rgi14,h=Rhi14);
+    DMux8Way(in=in[15],sel=address[0..2],a=Rai15,b=Rbi15,c=Rci15,d=Rdi15,e=Rei15,f=Rfi15,g=Rgi15,h=Rhi15);
+
+    DMux8Way(in=load,sel=address[0..2],a=loada,b=loadb,c=loadc,d=loadd,e=loade,f=loadf,g=loadg,h=loadh);
+
+
+
+    Register(in[0]=Rai0,in[1]=Rai1,in[2]=Rai2,in[3]=Rai3,in[4]=Rai4,in[5]=Rai5,in[6]=Rai6,in[7]=Rai7,in[8]=Rai8,in[9]=Rai9,in[10]=Rai10,in[11]=Rai11,in[12]=Rai12,in[13]=Rai13,in[14]=Rai14,in[15]=Rai15,load=loada,out[0]=Rao0,out[1]=Rao1,out[2]=Rao2,out[3]=Rao3,out[4]=Rao4,out[5]=Rao5,out[6]=Rao6,out[7]=Rao7,out[8]=Rao8,out[9]=Rao9,out[10]=Rao10,out[11]=Rao11,out[12]=Rao12,out[13]=Rao13,out[14]=Rao14,out[15]=Rao15);
+    Register(in[0]=Rbi0,in[1]=Rbi1,in[2]=Rbi2,in[3]=Rbi3,in[4]=Rbi4,in[5]=Rbi5,in[6]=Rbi6,in[7]=Rbi7,in[8]=Rbi8,in[9]=Rbi9,in[10]=Rbi10,in[11]=Rbi11,in[12]=Rbi12,in[13]=Rbi13,in[14]=Rbi14,in[15]=Rbi15,load=loadb,out[0]=Rbo0,out[1]=Rbo1,out[2]=Rbo2,out[3]=Rbo3,out[4]=Rbo4,out[5]=Rbo5,out[6]=Rbo6,out[7]=Rbo7,out[8]=Rbo8,out[9]=Rbo9,out[10]=Rbo10,out[11]=Rbo11,out[12]=Rbo12,out[13]=Rbo13,out[14]=Rbo14,out[15]=Rbo15);
+    Register(in[0]=Rci0,in[1]=Rci1,in[2]=Rci2,in[3]=Rci3,in[4]=Rci4,in[5]=Rci5,in[6]=Rci6,in[7]=Rci7,in[8]=Rci8,in[9]=Rci9,in[10]=Rci10,in[11]=Rci11,in[12]=Rci12,in[13]=Rci13,in[14]=Rci14,in[15]=Rci15,load=loadc,out[0]=Rco0,out[1]=Rco1,out[2]=Rco2,out[3]=Rco3,out[4]=Rco4,out[5]=Rco5,out[6]=Rco6,out[7]=Rco7,out[8]=Rco8,out[9]=Rco9,out[10]=Rco10,out[11]=Rco11,out[12]=Rco12,out[13]=Rco13,out[14]=Rco14,out[15]=Rco15);
+    Register(in[0]=Rdi0,in[1]=Rdi1,in[2]=Rdi2,in[3]=Rdi3,in[4]=Rdi4,in[5]=Rdi5,in[6]=Rdi6,in[7]=Rdi7,in[8]=Rdi8,in[9]=Rdi9,in[10]=Rdi10,in[11]=Rdi11,in[12]=Rdi12,in[13]=Rdi13,in[14]=Rdi14,in[15]=Rdi15,load=loadd,out[0]=Rdo0,out[1]=Rdo1,out[2]=Rdo2,out[3]=Rdo3,out[4]=Rdo4,out[5]=Rdo5,out[6]=Rdo6,out[7]=Rdo7,out[8]=Rdo8,out[9]=Rdo9,out[10]=Rdo10,out[11]=Rdo11,out[12]=Rdo12,out[13]=Rdo13,out[14]=Rdo14,out[15]=Rdo15);
+    Register(in[0]=Rei0,in[1]=Rei1,in[2]=Rei2,in[3]=Rei3,in[4]=Rei4,in[5]=Rei5,in[6]=Rei6,in[7]=Rei7,in[8]=Rei8,in[9]=Rei9,in[10]=Rei10,in[11]=Rei11,in[12]=Rei12,in[13]=Rei13,in[14]=Rei14,in[15]=Rei15,load=loade,out[0]=Reo0,out[1]=Reo1,out[2]=Reo2,out[3]=Reo3,out[4]=Reo4,out[5]=Reo5,out[6]=Reo6,out[7]=Reo7,out[8]=Reo8,out[9]=Reo9,out[10]=Reo10,out[11]=Reo11,out[12]=Reo12,out[13]=Reo13,out[14]=Reo14,out[15]=Reo15);
+    Register(in[0]=Rfi0,in[1]=Rfi1,in[2]=Rfi2,in[3]=Rfi3,in[4]=Rfi4,in[5]=Rfi5,in[6]=Rfi6,in[7]=Rfi7,in[8]=Rfi8,in[9]=Rfi9,in[10]=Rfi10,in[11]=Rfi11,in[12]=Rfi12,in[13]=Rfi13,in[14]=Rfi14,in[15]=Rfi15,load=loadf,out[0]=Rfo0,out[1]=Rfo1,out[2]=Rfo2,out[3]=Rfo3,out[4]=Rfo4,out[5]=Rfo5,out[6]=Rfo6,out[7]=Rfo7,out[8]=Rfo8,out[9]=Rfo9,out[10]=Rfo10,out[11]=Rfo11,out[12]=Rfo12,out[13]=Rfo13,out[14]=Rfo14,out[15]=Rfo15);
+    Register(in[0]=Rgi0,in[1]=Rgi1,in[2]=Rgi2,in[3]=Rgi3,in[4]=Rgi4,in[5]=Rgi5,in[6]=Rgi6,in[7]=Rgi7,in[8]=Rgi8,in[9]=Rgi9,in[10]=Rgi10,in[11]=Rgi11,in[12]=Rgi12,in[13]=Rgi13,in[14]=Rgi14,in[15]=Rgi15,load=loadg,out[0]=Rgo0,out[1]=Rgo1,out[2]=Rgo2,out[3]=Rgo3,out[4]=Rgo4,out[5]=Rgo5,out[6]=Rgo6,out[7]=Rgo7,out[8]=Rgo8,out[9]=Rgo9,out[10]=Rgo10,out[11]=Rgo11,out[12]=Rgo12,out[13]=Rgo13,out[14]=Rgo14,out[15]=Rgo15);
+    Register(in[0]=Rhi0,in[1]=Rhi1,in[2]=Rhi2,in[3]=Rhi3,in[4]=Rhi4,in[5]=Rhi5,in[6]=Rhi6,in[7]=Rhi7,in[8]=Rhi8,in[9]=Rhi9,in[10]=Rhi10,in[11]=Rhi11,in[12]=Rhi12,in[13]=Rhi13,in[14]=Rhi14,in[15]=Rhi15,load=loadh,out[0]=Rho0,out[1]=Rho1,out[2]=Rho2,out[3]=Rho3,out[4]=Rho4,out[5]=Rho5,out[6]=Rho6,out[7]=Rho7,out[8]=Rho8,out[9]=Rho9,out[10]=Rho10,out[11]=Rho11,out[12]=Rho12,out[13]=Rho13,out[14]=Rho14,out[15]=Rho15);
+
+
+
+    Mux8Way16(a[0]=Rao0,a[1]=Rao1,a[2]=Rao2,a[3]=Rao3,a[4]=Rao4,a[5]=Rao5,a[6]=Rao6,a[7]=Rao7,a[8]=Rao8,a[9]=Rao9,a[10]=Rao10,a[11]=Rao11,a[12]=Rao12,a[13]=Rao13,a[14]=Rao14,a[15]=Rao15,
+    b[0]=Rbo0,b[1]=Rbo1,b[2]=Rbo2,b[3]=Rbo3,b[4]=Rbo4,b[5]=Rbo5,b[6]=Rbo6,b[7]=Rbo7,b[8]=Rbo8,b[9]=Rbo9,b[10]=Rbo10,b[11]=Rbo11,b[12]=Rbo12,b[13]=Rbo13,b[14]=Rbo14,b[15]=Rbo15,
+    c[0]=Rco0,c[1]=Rco1,c[2]=Rco2,c[3]=Rco3,c[4]=Rco4,c[5]=Rco5,c[6]=Rco6,c[7]=Rco7,c[8]=Rco8,c[9]=Rco9,c[10]=Rco10,c[11]=Rco11,c[12]=Rco12,c[13]=Rco13,c[14]=Rco14,c[15]=Rco15,
+    d[0]=Rdo0,d[1]=Rdo1,d[2]=Rdo2,d[3]=Rdo3,d[4]=Rdo4,d[5]=Rdo5,d[6]=Rdo6,d[7]=Rdo7,d[8]=Rdo8,d[9]=Rdo9,d[10]=Rdo10,d[11]=Rdo11,d[12]=Rdo12,d[13]=Rdo13,d[14]=Rdo14,d[15]=Rdo15,
+    e[0]=Reo0,e[1]=Reo1,e[2]=Reo2,e[3]=Reo3,e[4]=Reo4,e[5]=Reo5,e[6]=Reo6,e[7]=Reo7,e[8]=Reo8,e[9]=Reo9,e[10]=Reo10,e[11]=Reo11,e[12]=Reo12,e[13]=Reo13,e[14]=Reo14,e[15]=Reo15,
+    f[0]=Rfo0,f[1]=Rfo1,f[2]=Rfo2,f[3]=Rfo3,f[4]=Rfo4,f[5]=Rfo5,f[6]=Rfo6,f[7]=Rfo7,f[8]=Rfo8,f[9]=Rfo9,f[10]=Rfo10,f[11]=Rfo11,f[12]=Rfo12,f[13]=Rfo13,f[14]=Rfo14,f[15]=Rfo15,
+    g[0]=Rgo0,g[1]=Rgo1,g[2]=Rgo2,g[3]=Rgo3,g[4]=Rgo4,g[5]=Rgo5,g[6]=Rgo6,g[7]=Rgo7,g[8]=Rgo8,g[9]=Rgo9,g[10]=Rgo10,g[11]=Rgo11,g[12]=Rgo12,g[13]=Rgo13,g[14]=Rgo14,g[15]=Rgo15,
+    h[0]=Rho0,h[1]=Rho1,h[2]=Rho2,h[3]=Rho3,h[4]=Rho4,h[5]=Rho5,h[6]=Rho6,h[7]=Rho7,h[8]=Rho8,h[9]=Rho9,h[10]=Rho10,h[11]=Rho11,h[12]=Rho12,h[13]=Rho13,h[14]=Rho14,h[15]=Rho15,sel=address[0..2],out=out[0..15]);
+}

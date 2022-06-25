@@ -1,0 +1,82 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/03/a/PC.hdl
+
+/**
+ * A 16-bit counter with load and reset control bits.
+ * if      (reset[t] == 1) out[t+1] = 0
+ * else if (load[t] == 1)  out[t+1] = in[t]
+ * else if (inc[t] == 1)   out[t+1] = out[t] + 1  (integer addition)
+ * else                    out[t+1] = out[t]
+ */
+
+CHIP PC {
+    IN in[16],load,inc,reset;
+    OUT out[16];
+
+    PARTS:
+
+    Not(in=reset,out=nreset);
+
+    //if any of the conditions are set then load
+    Or(a=reset,b=load,out=rl);
+    Or(a=rl,b=inc,out=loader);
+    
+    And(a=nreset,b=load,out=loadn);//if reset is set then ignore load
+
+    Not(in=rl,out=nrl);
+    And(a=nrl,b=inc,out=incn);//if reset of load are set then ignore inc
+
+    And16(a[0]=in[0],b[0]=loadn,a[1]=in[1],b[1]=loadn,a[2]=in[2],b[2]=loadn,//load
+    a[3]=in[3],b[3]=loadn,a[4]=in[4],b[4]=loadn,a[5]=in[5],b[5]=loadn,
+    a[6]=in[6],b[6]=loadn,a[7]=in[7],b[7]=loadn,a[8]=in[8],b[8]=loadn,
+    a[9]=in[9],b[9]=loadn,a[10]=in[10],b[10]=loadn,a[11]=in[11],b[11]=loadn,
+    a[12]=in[12],b[12]=loadn,a[13]=in[13],b[13]=loadn,a[14]=in[14],b[14]=loadn,
+    a[15]=in[15],b[15]=loadn,out[0]=loado0,out[1]=loado1,out[2]=loado2,
+    out[3]=loado3,out[4]=loado4,out[5]=loado5,out[6]=loado6,out[7]=loado7,
+    out[8]=loado8,out[9]=loado9,out[10]=loado10,out[11]=loado11,out[12]=loado12,
+    out[13]=loado13,out[14]=loado14,out[15]=loado15);
+
+    Inc16(in[0]=out0,in[1]=out1,in[2]=out2,in[3]=out3,in[4]=out4,//increments the current out[t]
+    in[5]=out5,in[6]=out6,in[7]=out7,in[8]=out8,in[9]=out9,in[10]=out10,in[11]=out11,
+    in[12]=out12,in[13]=out13,in[14]=out14,in[15]=out15,
+    out[0]=inco0,out[1]=inco1,out[2]=inco2,out[3]=inco3,out[4]=inco4,out[5]=inco5,
+    out[6]=inco6,out[7]=inco7,out[8]=inco8,out[9]=inco9,out[10]=inco10,out[11]=inco11,
+    out[12]=inco12,out[13]=inco13,out[14]=inco14,out[15]=inco15);
+
+    And16(a[0]=inco0,b[0]=incn,a[1]=inco1,b[1]=incn,a[2]=inco2,b[2]=incn,//if increment is allowed
+    a[3]=inco3,b[3]=incn,a[4]=inco4,b[4]=incn,a[5]=inco5,b[5]=incn,
+    a[6]=inco6,b[6]=incn,a[7]=inco7,b[7]=incn,a[8]=inco8,b[8]=incn,
+    a[9]=inco9,b[9]=incn,a[10]=inco10,b[10]=incn,a[11]=inco11,b[11]=incn,
+    a[12]=inco12,b[12]=incn,a[13]=inco13,b[13]=incn,a[14]=inco14,b[14]=incn,
+    a[15]=inco15,b[15]=incn,out[0]=incn0,out[1]=incn1,out[2]=incn2,
+    out[3]=incn3,out[4]=incn4,out[5]=incn5,out[6]=incn6,out[7]=incn7,
+    out[8]=incn8,out[9]=incn9,out[10]=incn10,out[11]=incn11,out[12]=incn12,
+    out[13]=incn13,out[14]=incn14,out[15]=incn15);
+
+
+    Or16(a[0]=incn0,b[0]=loado0,a[1]=incn1,b[1]=loado1,a[2]=incn2,b[2]=loado2,//combine the signal since they will only put something out if allowed
+    a[3]=incn3,b[3]=loado3,a[4]=incn4,b[4]=loado4,a[5]=incn5,b[5]=loado5,
+    a[6]=incn6,b[6]=loado6,a[7]=incn7,b[7]=loado7,a[8]=incn8,b[8]=loado8,
+    a[9]=incn9,b[9]=loado9,a[10]=incn10,b[10]=loado10,a[11]=incn11,b[11]=loado11,
+    a[12]=incn12,b[12]=loado12,a[13]=incn13,b[13]=loado13,a[14]=incn14,b[14]=loado14,
+    a[15]=incn15,b[15]=loado15,out[0]=PCin0,out[1]=PCin1,out[2]=PCin2,out[3]=PCin3,out[4]=PCin4,
+    out[5]=PCin5,out[6]=PCin6,out[7]=PCin7,out[8]=PCin8,out[9]=PCin9,out[10]=PCin10,out[11]=PCin11,
+    out[12]=PCin12,out[13]=PCin13,out[14]=PCin14,out[15]=PCin15);
+
+
+    Register(in[0]=PCin0,in[1]=PCin1,in[2]=PCin2,in[3]=PCin3,in[4]=PCin4,
+    in[5]=PCin5,in[6]=PCin6,in[7]=PCin7,in[8]=PCin8,in[9]=PCin9,
+    in[10]=PCin10,in[11]=PCin11,in[12]=PCin12,in[13]=PCin13,in[14]=PCin14,
+    in[15]=PCin15,load=loader,out[0]=out0,out[1]=out1,out[2]=out2,out[3]=out3,
+    out[4]=out4,out[5]=out5,out[6]=out6,out[7]=out7,out[8]=out8,out[9]=out9,
+    out[10]=out10,out[11]=out11,out[12]=out12,out[13]=out13,out[14]=out14,out[15]=out15);
+
+    Or16(a[0]=out0,a[1]=out1,a[2]=out2,a[3]=out3,a[4]=out4,a[5]=out5,a[6]=out6,a[7]=out7,//take the output and feed it to the output pins
+    a[8]=out8,a[9]=out9,a[10]=out10,a[11]=out11,a[12]=out12,a[13]=out13,a[14]=out14,a[15]=out15,
+    b[0]=false,b[1]=false,b[2]=false,b[3]=false,b[4]=false,b[5]=false,b[6]=false,b[7]=false,
+    b[8]=false,b[9]=false,b[10]=false,b[11]=false,b[12]=false,b[13]=false,b[14]=false,b[15]=false,
+    out[0]=out[0],out[1]=out[1],out[2]=out[2],out[3]=out[3],out[4]=out[4],out[5]=out[5],out[6]=out[6],out[7]=out[7],
+    out[8]=out[8],out[9]=out[9],out[10]=out[10],out[11]=out[11],out[12]=out[12],out[13]=out[13],out[14]=out[14],out[15]=out[15]);
+}
