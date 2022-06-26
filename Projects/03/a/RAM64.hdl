@@ -1,0 +1,41 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/03/a/RAM64.hdl
+
+/**
+ * Memory of 64 registers, each 16 bit-wide. Out holds the value
+ * stored at the memory location specified by address. If load==1, then 
+ * the in value is loaded into the memory location specified by address 
+ * (the loaded value will be emitted to out from the next time step onward).
+ */
+
+CHIP RAM64 {
+    IN in[16], load, address[6];
+    OUT out[16];
+
+    PARTS:
+    DMux8Way(in=load,sel=address[3..5],a=loada,b=loadb,c=loadc,d=loadd,e=loade,f=loadf,g=loadg,h=loadh);//determines which bank to enable for storage
+
+
+
+    RAM8(address[0..2]=address[0..2],in[0]=in[0],in[1]=in[1],in[2]=in[2],in[3]=in[3],in[4]=in[4],in[5]=in[5],in[6]=in[6],in[7]=in[7],in[8]=in[8],in[9]=in[9],in[10]=in[10],in[11]=in[11],in[12]=in[12],in[13]=in[13],in[14]=in[14],in[15]=in[15],load=loada,out[0]=Rao0,out[1]=Rao1,out[2]=Rao2,out[3]=Rao3,out[4]=Rao4,out[5]=Rao5,out[6]=Rao6,out[7]=Rao7,out[8]=Rao8,out[9]=Rao9,out[10]=Rao10,out[11]=Rao11,out[12]=Rao12,out[13]=Rao13,out[14]=Rao14,out[15]=Rao15);
+    RAM8(address[0..2]=address[0..2],in[0]=in[0],in[1]=in[1],in[2]=in[2],in[3]=in[3],in[4]=in[4],in[5]=in[5],in[6]=in[6],in[7]=in[7],in[8]=in[8],in[9]=in[9],in[10]=in[10],in[11]=in[11],in[12]=in[12],in[13]=in[13],in[14]=in[14],in[15]=in[15],load=loadb,out[0]=Rbo0,out[1]=Rbo1,out[2]=Rbo2,out[3]=Rbo3,out[4]=Rbo4,out[5]=Rbo5,out[6]=Rbo6,out[7]=Rbo7,out[8]=Rbo8,out[9]=Rbo9,out[10]=Rbo10,out[11]=Rbo11,out[12]=Rbo12,out[13]=Rbo13,out[14]=Rbo14,out[15]=Rbo15);
+    RAM8(address[0..2]=address[0..2],in[0]=in[0],in[1]=in[1],in[2]=in[2],in[3]=in[3],in[4]=in[4],in[5]=in[5],in[6]=in[6],in[7]=in[7],in[8]=in[8],in[9]=in[9],in[10]=in[10],in[11]=in[11],in[12]=in[12],in[13]=in[13],in[14]=in[14],in[15]=in[15],load=loadc,out[0]=Rco0,out[1]=Rco1,out[2]=Rco2,out[3]=Rco3,out[4]=Rco4,out[5]=Rco5,out[6]=Rco6,out[7]=Rco7,out[8]=Rco8,out[9]=Rco9,out[10]=Rco10,out[11]=Rco11,out[12]=Rco12,out[13]=Rco13,out[14]=Rco14,out[15]=Rco15);
+    RAM8(address[0..2]=address[0..2],in[0]=in[0],in[1]=in[1],in[2]=in[2],in[3]=in[3],in[4]=in[4],in[5]=in[5],in[6]=in[6],in[7]=in[7],in[8]=in[8],in[9]=in[9],in[10]=in[10],in[11]=in[11],in[12]=in[12],in[13]=in[13],in[14]=in[14],in[15]=in[15],load=loadd,out[0]=Rdo0,out[1]=Rdo1,out[2]=Rdo2,out[3]=Rdo3,out[4]=Rdo4,out[5]=Rdo5,out[6]=Rdo6,out[7]=Rdo7,out[8]=Rdo8,out[9]=Rdo9,out[10]=Rdo10,out[11]=Rdo11,out[12]=Rdo12,out[13]=Rdo13,out[14]=Rdo14,out[15]=Rdo15);
+    RAM8(address[0..2]=address[0..2],in[0]=in[0],in[1]=in[1],in[2]=in[2],in[3]=in[3],in[4]=in[4],in[5]=in[5],in[6]=in[6],in[7]=in[7],in[8]=in[8],in[9]=in[9],in[10]=in[10],in[11]=in[11],in[12]=in[12],in[13]=in[13],in[14]=in[14],in[15]=in[15],load=loade,out[0]=Reo0,out[1]=Reo1,out[2]=Reo2,out[3]=Reo3,out[4]=Reo4,out[5]=Reo5,out[6]=Reo6,out[7]=Reo7,out[8]=Reo8,out[9]=Reo9,out[10]=Reo10,out[11]=Reo11,out[12]=Reo12,out[13]=Reo13,out[14]=Reo14,out[15]=Reo15);
+    RAM8(address[0..2]=address[0..2],in[0]=in[0],in[1]=in[1],in[2]=in[2],in[3]=in[3],in[4]=in[4],in[5]=in[5],in[6]=in[6],in[7]=in[7],in[8]=in[8],in[9]=in[9],in[10]=in[10],in[11]=in[11],in[12]=in[12],in[13]=in[13],in[14]=in[14],in[15]=in[15],load=loadf,out[0]=Rfo0,out[1]=Rfo1,out[2]=Rfo2,out[3]=Rfo3,out[4]=Rfo4,out[5]=Rfo5,out[6]=Rfo6,out[7]=Rfo7,out[8]=Rfo8,out[9]=Rfo9,out[10]=Rfo10,out[11]=Rfo11,out[12]=Rfo12,out[13]=Rfo13,out[14]=Rfo14,out[15]=Rfo15);
+    RAM8(address[0..2]=address[0..2],in[0]=in[0],in[1]=in[1],in[2]=in[2],in[3]=in[3],in[4]=in[4],in[5]=in[5],in[6]=in[6],in[7]=in[7],in[8]=in[8],in[9]=in[9],in[10]=in[10],in[11]=in[11],in[12]=in[12],in[13]=in[13],in[14]=in[14],in[15]=in[15],load=loadg,out[0]=Rgo0,out[1]=Rgo1,out[2]=Rgo2,out[3]=Rgo3,out[4]=Rgo4,out[5]=Rgo5,out[6]=Rgo6,out[7]=Rgo7,out[8]=Rgo8,out[9]=Rgo9,out[10]=Rgo10,out[11]=Rgo11,out[12]=Rgo12,out[13]=Rgo13,out[14]=Rgo14,out[15]=Rgo15);
+    RAM8(address[0..2]=address[0..2],in[0]=in[0],in[1]=in[1],in[2]=in[2],in[3]=in[3],in[4]=in[4],in[5]=in[5],in[6]=in[6],in[7]=in[7],in[8]=in[8],in[9]=in[9],in[10]=in[10],in[11]=in[11],in[12]=in[12],in[13]=in[13],in[14]=in[14],in[15]=in[15],load=loadh,out[0]=Rho0,out[1]=Rho1,out[2]=Rho2,out[3]=Rho3,out[4]=Rho4,out[5]=Rho5,out[6]=Rho6,out[7]=Rho7,out[8]=Rho8,out[9]=Rho9,out[10]=Rho10,out[11]=Rho11,out[12]=Rho12,out[13]=Rho13,out[14]=Rho14,out[15]=Rho15);
+
+
+
+    Mux8Way16(a[0]=Rao0,a[1]=Rao1,a[2]=Rao2,a[3]=Rao3,a[4]=Rao4,a[5]=Rao5,a[6]=Rao6,a[7]=Rao7,a[8]=Rao8,a[9]=Rao9,a[10]=Rao10,a[11]=Rao11,a[12]=Rao12,a[13]=Rao13,a[14]=Rao14,a[15]=Rao15,
+    b[0]=Rbo0,b[1]=Rbo1,b[2]=Rbo2,b[3]=Rbo3,b[4]=Rbo4,b[5]=Rbo5,b[6]=Rbo6,b[7]=Rbo7,b[8]=Rbo8,b[9]=Rbo9,b[10]=Rbo10,b[11]=Rbo11,b[12]=Rbo12,b[13]=Rbo13,b[14]=Rbo14,b[15]=Rbo15,
+    c[0]=Rco0,c[1]=Rco1,c[2]=Rco2,c[3]=Rco3,c[4]=Rco4,c[5]=Rco5,c[6]=Rco6,c[7]=Rco7,c[8]=Rco8,c[9]=Rco9,c[10]=Rco10,c[11]=Rco11,c[12]=Rco12,c[13]=Rco13,c[14]=Rco14,c[15]=Rco15,
+    d[0]=Rdo0,d[1]=Rdo1,d[2]=Rdo2,d[3]=Rdo3,d[4]=Rdo4,d[5]=Rdo5,d[6]=Rdo6,d[7]=Rdo7,d[8]=Rdo8,d[9]=Rdo9,d[10]=Rdo10,d[11]=Rdo11,d[12]=Rdo12,d[13]=Rdo13,d[14]=Rdo14,d[15]=Rdo15,
+    e[0]=Reo0,e[1]=Reo1,e[2]=Reo2,e[3]=Reo3,e[4]=Reo4,e[5]=Reo5,e[6]=Reo6,e[7]=Reo7,e[8]=Reo8,e[9]=Reo9,e[10]=Reo10,e[11]=Reo11,e[12]=Reo12,e[13]=Reo13,e[14]=Reo14,e[15]=Reo15,
+    f[0]=Rfo0,f[1]=Rfo1,f[2]=Rfo2,f[3]=Rfo3,f[4]=Rfo4,f[5]=Rfo5,f[6]=Rfo6,f[7]=Rfo7,f[8]=Rfo8,f[9]=Rfo9,f[10]=Rfo10,f[11]=Rfo11,f[12]=Rfo12,f[13]=Rfo13,f[14]=Rfo14,f[15]=Rfo15,
+    g[0]=Rgo0,g[1]=Rgo1,g[2]=Rgo2,g[3]=Rgo3,g[4]=Rgo4,g[5]=Rgo5,g[6]=Rgo6,g[7]=Rgo7,g[8]=Rgo8,g[9]=Rgo9,g[10]=Rgo10,g[11]=Rgo11,g[12]=Rgo12,g[13]=Rgo13,g[14]=Rgo14,g[15]=Rgo15,
+    h[0]=Rho0,h[1]=Rho1,h[2]=Rho2,h[3]=Rho3,h[4]=Rho4,h[5]=Rho5,h[6]=Rho6,h[7]=Rho7,h[8]=Rho8,h[9]=Rho9,h[10]=Rho10,h[11]=Rho11,h[12]=Rho12,h[13]=Rho13,h[14]=Rho14,h[15]=Rho15,sel=address[3..5],out=out[0..15]);
+}

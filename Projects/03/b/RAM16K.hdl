@@ -1,0 +1,32 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/03/b/RAM16K.hdl
+
+/**
+ * Memory of 16K registers, each 16 bit-wide. Out holds the value
+ * stored at the memory location specified by address. If load==1, then 
+ * the in value is loaded into the memory location specified by address 
+ * (the loaded value will be emitted to out from the next time step onward).
+ */
+
+CHIP RAM16K {
+    IN in[16], load, address[14];
+    OUT out[16];
+
+    PARTS:
+    DMux4Way(in=load,sel=address[12..13],a=loada,b=loadb,c=loadc,d=loadd);
+
+
+    RAM4K(in[0]=in[0],in[1]=in[1],in[2]=in[2],in[3]=in[3],in[4]=in[4],in[5]=in[5],in[6]=in[6],in[7]=in[7],in[8]=in[8],in[9]=in[9],in[10]=in[10],in[11]=in[11],in[12]=in[12],in[13]=in[13],in[14]=in[14],in[15]=in[15],load=loada,address[0..11]=address[0..11],out[0]=Rao0,out[1]=Rao1,out[2]=Rao2,out[3]=Rao3,out[4]=Rao4,out[5]=Rao5,out[6]=Rao6,out[7]=Rao7,out[8]=Rao8,out[9]=Rao9,out[10]=Rao10,out[11]=Rao11,out[12]=Rao12,out[13]=Rao13,out[14]=Rao14,out[15]=Rao15);
+    RAM4K(in[0]=in[0],in[1]=in[1],in[2]=in[2],in[3]=in[3],in[4]=in[4],in[5]=in[5],in[6]=in[6],in[7]=in[7],in[8]=in[8],in[9]=in[9],in[10]=in[10],in[11]=in[11],in[12]=in[12],in[13]=in[13],in[14]=in[14],in[15]=in[15],load=loadb,address[0..11]=address[0..11],out[0]=Rbo0,out[1]=Rbo1,out[2]=Rbo2,out[3]=Rbo3,out[4]=Rbo4,out[5]=Rbo5,out[6]=Rbo6,out[7]=Rbo7,out[8]=Rbo8,out[9]=Rbo9,out[10]=Rbo10,out[11]=Rbo11,out[12]=Rbo12,out[13]=Rbo13,out[14]=Rbo14,out[15]=Rbo15);
+    RAM4K(in[0]=in[0],in[1]=in[1],in[2]=in[2],in[3]=in[3],in[4]=in[4],in[5]=in[5],in[6]=in[6],in[7]=in[7],in[8]=in[8],in[9]=in[9],in[10]=in[10],in[11]=in[11],in[12]=in[12],in[13]=in[13],in[14]=in[14],in[15]=in[15],load=loadc,address[0..11]=address[0..11],out[0]=Rco0,out[1]=Rco1,out[2]=Rco2,out[3]=Rco3,out[4]=Rco4,out[5]=Rco5,out[6]=Rco6,out[7]=Rco7,out[8]=Rco8,out[9]=Rco9,out[10]=Rco10,out[11]=Rco11,out[12]=Rco12,out[13]=Rco13,out[14]=Rco14,out[15]=Rco15);
+    RAM4K(in[0]=in[0],in[1]=in[1],in[2]=in[2],in[3]=in[3],in[4]=in[4],in[5]=in[5],in[6]=in[6],in[7]=in[7],in[8]=in[8],in[9]=in[9],in[10]=in[10],in[11]=in[11],in[12]=in[12],in[13]=in[13],in[14]=in[14],in[15]=in[15],load=loadd,address[0..11]=address[0..11],out[0]=Rdo0,out[1]=Rdo1,out[2]=Rdo2,out[3]=Rdo3,out[4]=Rdo4,out[5]=Rdo5,out[6]=Rdo6,out[7]=Rdo7,out[8]=Rdo8,out[9]=Rdo9,out[10]=Rdo10,out[11]=Rdo11,out[12]=Rdo12,out[13]=Rdo13,out[14]=Rdo14,out[15]=Rdo15);
+    
+
+    Mux4Way16(a[0]=Rao0,a[1]=Rao1,a[2]=Rao2,a[3]=Rao3,a[4]=Rao4,a[5]=Rao5,a[6]=Rao6,a[7]=Rao7,a[8]=Rao8,a[9]=Rao9,a[10]=Rao10,a[11]=Rao11,a[12]=Rao12,a[13]=Rao13,a[14]=Rao14,a[15]=Rao15,
+    b[0]=Rbo0,b[1]=Rbo1,b[2]=Rbo2,b[3]=Rbo3,b[4]=Rbo4,b[5]=Rbo5,b[6]=Rbo6,b[7]=Rbo7,b[8]=Rbo8,b[9]=Rbo9,b[10]=Rbo10,b[11]=Rbo11,b[12]=Rbo12,b[13]=Rbo13,b[14]=Rbo14,b[15]=Rbo15,
+    c[0]=Rco0,c[1]=Rco1,c[2]=Rco2,c[3]=Rco3,c[4]=Rco4,c[5]=Rco5,c[6]=Rco6,c[7]=Rco7,c[8]=Rco8,c[9]=Rco9,c[10]=Rco10,c[11]=Rco11,c[12]=Rco12,c[13]=Rco13,c[14]=Rco14,c[15]=Rco15,
+    d[0]=Rdo0,d[1]=Rdo1,d[2]=Rdo2,d[3]=Rdo3,d[4]=Rdo4,d[5]=Rdo5,d[6]=Rdo6,d[7]=Rdo7,d[8]=Rdo8,d[9]=Rdo9,d[10]=Rdo10,d[11]=Rdo11,d[12]=Rdo12,d[13]=Rdo13,d[14]=Rdo14,d[15]=Rdo15,sel=address[12..13],out=out[0..15]);
+}
+//only 2 new addresses so we only need 4 more banks rather than 8
